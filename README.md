@@ -1,4 +1,4 @@
-# yclobbying
+# Official YC Lobbying Website
 
 A full-stack application for lobbying management with Django backend and React/Vite frontend.
 
