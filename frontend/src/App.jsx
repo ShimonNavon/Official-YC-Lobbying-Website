@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import api from "./api";
 
 function App() {
-  const [message, setMessage] = useState("Loading...");
+  const [status, setStatus] = useState("");
 
-  useEffect(() => {
-    api.get("/health/")
-      .then((response) => {
-        setMessage(response.data.message);
-      })
-      .catch(() => {
-        setMessage("Could not connect to backend");
+  const sendTest = async () => {
+    try {
+      const response = await api.post("/contact/", {
+        name: "React Test",
+        email: "react@example.com",
+        company: "YC Lobbying",
+        phone: "999999999",
+        message: "Sent from React",
       });
-  }, []);
+
+      setStatus("Success: " + response.data.id);
+    } catch (error) {
+      setStatus("Error sending request");
+      console.error(error);
+    }
+  };
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ padding: "2rem" }}>
       <h1>yclobbying</h1>
-      <p>{message}</p>
+      <button onClick={sendTest}>Send Test Contact</button>
+      <p>{status}</p>
     </div>
   );
 }
