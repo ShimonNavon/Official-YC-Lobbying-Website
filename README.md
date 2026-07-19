@@ -1,39 +1,36 @@
-# Official YC Lobbying Website
+<p align="center"><img src="assets/banner.svg" alt="YC Lobbying" width="100%"></p>
 
-A full-stack application for lobbying management with Django backend and React/Vite frontend.
+# YC Lobbying — Public-Affairs Management Platform
 
-## Project Structure
+**Live:** [yclobbying.com](https://yclobbying.com)
 
-- **backend/**: Django REST API
-  - `config/`: Django configuration
-  - `contacts/`: Contacts management app
-  - `core/`: Core functionality
+A full-stack platform for a lobbying and public-affairs firm: Django REST API, React/Vite frontend, and container orchestration that takes a clean checkout to production with one command.
 
-- **frontend/**: React application
-  - Built with Vite
-  - Vue/React components in `src/`
+## Highlights
 
-## Getting Started
+- **Production-grade Django + DRF backend** — environment-driven configuration (secrets, hosts, CORS origins all from `.env`), Postgres, admin workflows.
+- **Modern React frontend** — Vite build, component-driven UI, proxied `/api`, `/admin`, and `/static` routes so the SPA and API share one origin.
+- **Deployment as a first-class feature** — Docker Compose topology documented in `DEPLOY.md`, localhost-bound ports behind host nginx + Cloudflare Tunnel, custom domain with TLS at the edge.
 
-### Backend Setup
+## Architecture
 
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+```mermaid
+flowchart LR
+    U[Visitor] -->|HTTPS| CF[Cloudflare Tunnel] --> N[Host nginx]
+    N -->|/| F[frontend · React/Vite]
+    N -->|/api /admin /static| B[backend · Django + DRF :8003]
+    B --> P[(Postgres)]
 ```
 
-### Frontend Setup
+## Run it
 
 ```bash
-cd frontend
-npm install
-npm run dev
+cp .env.example .env   # set real secrets, hosts, and origins
+docker compose up -d --build
 ```
 
-## License
+The frontend is exposed on `FRONTEND_PORT` and proxies `/api`, `/admin`, and `/static` to the Django backend. See `DEPLOY.md` for deployment and update commands.
 
-MIT
+---
+
+Built by **Simon Navon** — [consulting.navonsimon.com](https://consulting.navonsimon.com)
