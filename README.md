@@ -4,6 +4,8 @@
 
 **Live:** [yclobbying.com](https://yclobbying.com)
 
+**Project story:** [How I built the YC Lobbying platform](https://simonhost.navonsimon.com/blog/building-yc-lobbying-platform) · **More work:** [16 production projects](https://simonhost.navonsimon.com/work)
+
 A full-stack platform for a lobbying and public-affairs firm: Django REST API, React/Vite frontend, and container orchestration that takes a clean checkout to production with one command.
 
 ## Highlights
